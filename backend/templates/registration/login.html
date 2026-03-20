@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Journal App{% endblock %}
+
+{% block content %}
+<section class="grid w-full max-w-5xl overflow-hidden rounded-[2rem] bg-white/80 shadow-card ring-1 ring-black/5 backdrop-blur md:grid-cols-[1.05fr_0.95fr]">
+    <div class="flex flex-col justify-between bg-pine px-8 py-10 text-white md:px-10 md:py-12">
+        <div class="space-y-5">
+            <span class="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-white/80">Journal App</span>
+            <div class="space-y-3">
+                <h1 class="text-4xl leading-tight md:text-5xl">Return to your writing rhythm.</h1>
+                <p class="max-w-md text-sm leading-7 text-white/75 md:text-base">
+                    Pick up where you left off, revisit past entries, and keep your reflections in one calm place.
+                </p>
+            </div>
+        </div>
+        <p class="mt-10 text-sm text-white/60">Private thoughts deserve a deliberate, uncluttered interface.</p>
+    </div>
+
+    <div class="px-8 py-10 md:px-10 md:py-12">
+        <div class="mx-auto max-w-md">
+            <div class="mb-8 space-y-2">
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-coral">Welcome back</p>
+                <h2 class="text-3xl text-ink">Log in</h2>
+            </div>
+
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+                    <div class="space-y-2">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-ink/80">
+                            {{ field.label }}
+                        </label>
+                        <div class="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 transition focus-within:border-coral focus-within:bg-white focus-within:ring-2 focus-within:ring-coral/20">
+                            {{ field }}
+                        </div>
+                        {% if field.errors %}
+                            <p class="text-sm text-red-600">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="w-full rounded-2xl bg-ink px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-coral">
+                    Login
+                </button>
+            </form>
+
+            <p class="mt-6 text-sm text-ink/70">
+                New here?
+                <a href="{% url 'signup' %}" class="font-semibold text-coral transition hover:text-pine">Create an account</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

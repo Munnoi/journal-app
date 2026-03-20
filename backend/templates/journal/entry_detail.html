@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}{{ entry.title }} | Journal App{% endblock %}
+
+{% block content %}
+<section class="grid w-full max-w-6xl gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+    <aside class="rounded-[2rem] bg-[linear-gradient(160deg,_#355070_0%,_#43607f_52%,_#e76f51_135%)] p-8 text-white shadow-card md:p-10">
+        <div class="space-y-5">
+            <span class="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-white/80">Entry Detail</span>
+            <h1 class="text-4xl leading-tight md:text-5xl">{{ entry.title }}</h1>
+            <p class="text-sm leading-7 text-white/80 md:text-base">
+                Revisit the full entry, scan the timestamps, and use this page as the long-form reading view for your journal.
+            </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 text-sm text-white/75">
+            <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
+                Created {{ entry.created_at|date:"F d, Y" }} at {{ entry.created_at|time:"g:i A" }}
+            </div>
+            <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
+                Updated {{ entry.updated_at|date:"F d, Y" }} at {{ entry.updated_at|time:"g:i A" }}
+            </div>
+        </div>
+    </aside>
+
+    <article class="rounded-[2rem] bg-white/85 p-8 shadow-card ring-1 ring-black/5 backdrop-blur md:p-10">
+        <div class="flex flex-col gap-4 border-b border-stone-200 pb-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-coral">Full Entry</p>
+                <h2 class="mt-2 text-3xl text-ink">Journal entry</h2>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <a href="{% url 'entry_list' %}" class="rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-ink/70 transition hover:border-coral hover:text-coral">
+                    Back to entries
+                </a>
+                <a href="{% url 'create_entry' %}" class="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-coral">
+                    New entry
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-8 space-y-6">
+            <div class="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/45">
+                <span class="rounded-full bg-stone-100 px-3 py-2">Words: {{ entry.content|wordcount }}</span>
+                <span class="rounded-full bg-stone-100 px-3 py-2">Created {{ entry.created_at|date:"M d, Y" }}</span>
+                <span class="rounded-full bg-stone-100 px-3 py-2">Updated {{ entry.updated_at|date:"M d, Y" }}</span>
+            </div>
+
+            <div class="rounded-[1.75rem] bg-sand/70 p-6 ring-1 ring-stone-200">
+                <div class="whitespace-pre-line text-base leading-8 text-ink/80">{{ entry.content }}</div>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

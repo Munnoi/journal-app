@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Journal App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: "#111827",
+                        sand: "#f7f3eb",
+                        coral: "#e76f51",
+                        clay: "#d9b08c",
+                        pine: "#355070"
+                    },
+                    fontFamily: {
+                        sans: ["Georgia", "Cambria", "Times New Roman", "serif"]
+                    },
+                    boxShadow: {
+                        card: "0 24px 80px -32px rgba(17, 24, 39, 0.35)"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #111827;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            outline: none;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(17, 24, 39, 0.45);
+        }
+
+        ul.errorlist,
+        ul.helptext {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(231,111,81,0.18),_transparent_32%),linear-gradient(135deg,_#fff8ef_0%,_#f7f3eb_48%,_#efe3d0_100%)] text-ink">
+    <div class="relative isolate min-h-screen overflow-hidden">
+        <div class="absolute inset-x-0 top-0 h-56 bg-[linear-gradient(120deg,_rgba(53,80,112,0.14),_transparent_65%)]"></div>
+        <div class="absolute -left-24 top-24 h-72 w-72 rounded-full bg-coral/10 blur-3xl"></div>
+        <div class="absolute right-0 top-40 h-80 w-80 rounded-full bg-pine/10 blur-3xl"></div>
+
+        <main class="relative mx-auto flex min-h-screen max-w-6xl items-center justify-center px-6 py-12">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

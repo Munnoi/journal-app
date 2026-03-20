@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}New Entry | Journal App{% endblock %}
+
+{% block content %}
+<section class="grid w-full max-w-6xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <aside class="rounded-[2rem] bg-[linear-gradient(160deg,_#355070_0%,_#43607f_52%,_#e76f51_135%)] p-8 text-white shadow-card md:p-10">
+        <div class="space-y-5">
+            <span class="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-white/80">New Entry</span>
+            <h1 class="text-4xl leading-tight md:text-5xl">Write while the thought is still warm.</h1>
+            <p class="max-w-md text-sm leading-7 text-white/80 md:text-base">
+                Capture the headline first, then let the page hold the detail. Short notes and longer reflections both fit here.
+            </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 text-sm text-white/75">
+            <div class="rounded-2xl border border-white/15 bg-white/10 p-4">Use a clear title so you can scan older entries quickly.</div>
+            <div class="rounded-2xl border border-white/15 bg-white/10 p-4">The content field is flexible enough for outlines, logs, or full journal entries.</div>
+        </div>
+    </aside>
+
+    <div class="rounded-[2rem] bg-white/85 p-8 shadow-card ring-1 ring-black/5 backdrop-blur md:p-10">
+        <div class="mx-auto max-w-2xl">
+            <div class="mb-8 flex items-start justify-between gap-4">
+                <div class="space-y-2">
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-coral">Compose</p>
+                    <h2 class="text-3xl text-ink">Create an entry</h2>
+                </div>
+                <a href="{% url 'entry_list' %}" class="rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-ink/70 transition hover:border-coral hover:text-coral">
+                    Back to entries
+                </a>
+            </div>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+
+                <div class="space-y-2">
+                    <label for="title" class="block text-sm font-medium text-ink/80">Title</label>
+                    <div class="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 transition focus-within:border-coral focus-within:bg-white focus-within:ring-2 focus-within:ring-coral/20">
+                        <input id="title" name="title" type="text" placeholder="Morning pages, sprint notes, travel day..." required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="content" class="block text-sm font-medium text-ink/80">Content</label>
+                    <div class="rounded-[1.75rem] border border-stone-200 bg-stone-50 px-4 py-4 transition focus-within:border-coral focus-within:bg-white focus-within:ring-2 focus-within:ring-coral/20">
+                        <textarea id="content" name="content" rows="12" placeholder="What happened, what stood out, what should you remember?" required></textarea>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <button type="submit" class="rounded-2xl bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-coral">
+                        Save Entry
+                    </button>
+                    <p class="text-sm text-ink/55">Entries are saved directly to your personal journal feed.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

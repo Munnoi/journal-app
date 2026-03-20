@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Your Entries | Journal App{% endblock %}
+
+{% block content %}
+<section class="w-full max-w-6xl space-y-8">
+    <div class="flex flex-col gap-5 rounded-[2rem] bg-white/80 p-8 shadow-card ring-1 ring-black/5 backdrop-blur md:flex-row md:items-end md:justify-between md:p-10">
+        <div class="space-y-3">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-coral">Your Journal</p>
+            <h1 class="max-w-2xl text-4xl leading-tight text-ink md:text-5xl">A running record of your days, decisions, and ideas.</h1>
+            <p class="max-w-2xl text-sm leading-7 text-ink/65 md:text-base">
+                Review recent entries, spot patterns, and keep momentum by adding the next note before the day gets away from you.
+            </p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+            <a href="{% url 'create_entry' %}" class="rounded-2xl bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-coral">
+                New Entry
+            </a>
+            <a href="{% url 'logout' %}" class="rounded-2xl border border-stone-300 px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-ink/70 transition hover:border-coral hover:text-coral">
+                Log Out
+            </a>
+        </div>
+    </div>
+
+    {% if entries %}
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {% for entry in entries %}
+                <article class="flex h-full flex-col rounded-[1.75rem] bg-white/85 p-6 shadow-card ring-1 ring-black/5 backdrop-blur transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div class="mb-5 flex items-center justify-between gap-4">
+                        <span class="rounded-full bg-coral/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-coral">Entry</span>
+                        <time class="text-xs uppercase tracking-[0.18em] text-ink/45">{{ entry.created_at|date:"M d, Y" }}</time>
+                    </div>
+                    <h2 class="text-2xl leading-snug text-ink">
+                        <a href="{% url 'entry_detail' entry.id %}" class="transition hover:text-coral">
+                            {{ entry.title }}
+                        </a>
+                    </h2>
+                    <p class="mt-4 flex-1 text-sm leading-7 text-ink/65">
+                        {{ entry.content|truncatechars:180 }}
+                    </p>
+                    <div class="mt-6 flex items-center justify-between border-t border-stone-200 pt-4 text-sm text-ink/45">
+                        <span>Updated {{ entry.updated_at|date:"M d, Y" }}</span>
+                        <a href="{% url 'entry_detail' entry.id %}" class="font-medium text-coral transition hover:text-pine">
+                            Read entry
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="rounded-[2rem] border border-dashed border-stone-300 bg-white/55 px-8 py-14 text-center">
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-coral">No entries yet</p>
+            <h2 class="mt-3 text-3xl text-ink">Start the first page.</h2>
+            <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-ink/60 md:text-base">
+                Your journal feed is empty right now. Create one entry to establish the habit and give the archive something to build on.
+            </p>
+            <a href="{% url 'create_entry' %}" class="mt-8 inline-flex rounded-2xl bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-coral">
+                Create Entry
+            </a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
