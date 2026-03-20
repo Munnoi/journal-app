@@ -25,9 +25,6 @@ SECRET_KEY = 'django-insecure-$*9p_5q0rzt(e8&hd)&cy8#pkciun^^rcm3x!_x*#6@gzibu@g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -119,3 +117,5 @@ STATIC_URL = 'static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+ALLOWED_HOSTS = ['journal-app-pjc5.onrender.com']
