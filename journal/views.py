@@ -63,6 +63,10 @@ def edit_entry(request, id):
 @login_required
 def delete_entry(request, id):
     entry = get_object_or_404(Entry, id=id, user=request.user)
+
+    if request.method != 'POST':
+        return redirect('entry_detail', id=entry.id)
+
     entry.delete()
 
     return redirect('entry_list')

@@ -33,6 +33,15 @@
                 <a href="{% url 'entry_list' %}" class="rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-ink/70 transition hover:border-coral hover:text-coral">
                     Back to entries
                 </a>
+                <a href="{% url 'edit_entry' entry.id %}" class="rounded-full border border-pine/25 bg-pine/5 px-4 py-2 text-sm font-medium text-pine transition hover:border-pine hover:bg-pine hover:text-white">
+                    Edit entry
+                </a>
+                <form method="post" action="{% url 'delete_entry' entry.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full rounded-full border border-coral/30 bg-coral/10 px-4 py-2 text-sm font-medium text-coral transition hover:bg-coral hover:text-white">
+                        Delete entry
+                    </button>
+                </form>
                 <a href="{% url 'create_entry' %}" class="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-coral">
                     New entry
                 </a>
