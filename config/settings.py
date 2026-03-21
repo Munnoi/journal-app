@@ -73,11 +73,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 import dj_database_url
 import os
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise Exception("DATABASE_URL is not set!")
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get("DATABASE_URL")
-    )
+    'default': dj_database_url.parse(DATABASE_URL)
 }
 
 
