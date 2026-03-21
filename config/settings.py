@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 import dj_database_url
 import os
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL") or "postgresql://journal_rgma_user:IXVDyrY7mCZoSceZQ1lBQSDGIwBfIVqK@dpg-d6v2f17gi27c73eo69h0-a.oregon-postgres.render.com/journal_rgma"
 
 if not DATABASE_URL:
     raise Exception("DATABASE_URL is not set!")
